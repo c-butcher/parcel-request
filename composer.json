@@ -1,0 +1,14 @@
+{
+  "name": "parcel/request",
+  "description": "This component decodes the request, stores the request variables, and allows you to access them with helper methods.",
+  "version": "1.0.0",
+  "homepage": "",
+  "autoload": {
+    "psr-0": { "": "src/" },
+    "psr-4": { "": "src/" }
+  },
+  "require": {
+    "php": "^5.6 || ^7.0",
+    "parcel/array-helper": "^1.0.0"
+  }
+}
