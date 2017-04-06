@@ -106,7 +106,7 @@ abstract class RequestBase implements RequestInterface {
 			}
 		}
 
-		if ( $filter & self::FILTER_FILE ) {
+		if ( $filter & self::FILTER_HEADER ) {
 			if ( $this->_Headers->Has( $name ) ) {
 				return $this->_Headers->Get( $name );
 			}
