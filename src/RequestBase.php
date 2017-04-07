@@ -17,6 +17,7 @@ abstract class RequestBase implements RequestInterface {
 	const FILTER_POST   = 2;
 	const FILTER_FILE   = 4;
 	const FILTER_HEADER = 8;
+	const FILTER_ALL    = 15;
 
 	/**
 	 * @var ArrayHelper
@@ -54,7 +55,7 @@ abstract class RequestBase implements RequestInterface {
 	/**
 	 * @inheritdoc
 	 */
-	public function Has( $name, $filter = self::FILTER_GET | self::FILTER_POST | self::FILTER_FILE | self::FILTER_HEADER ) {
+	public function Has( $name, $filter = self::FILTER_ALL ) {
 
 		if ( $filter & self::FILTER_GET ) {
 			if ( $this->_Get->Has( $name ) ) {
@@ -86,7 +87,7 @@ abstract class RequestBase implements RequestInterface {
 	/**
 	 * @inheritdoc
 	 */
-	public function Get( $name, $default = null, $filter = self::FILTER_GET | self::FILTER_POST | self::FILTER_FILE | self::FILTER_HEADER ) {
+	public function Get( $name, $default = null, $filter = self::FILTER_ALL ) {
 
 		if ( $filter & self::FILTER_GET ) {
 			if ( $this->_Get->Has( $name ) ) {
