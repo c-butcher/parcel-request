@@ -6,7 +6,7 @@ namespace Parcel\Request;
  * Class Request
  *
  * @version 1.0.0
- * @author Chris Butcher
+ * @author  Chris Butcher
  * @package Parcel\Request
  */
 class Request extends RequestBase {
@@ -24,7 +24,7 @@ class Request extends RequestBase {
 	public function __construct() {
 		parent::__construct();
 
-		if ( self::$_Instance === null ) {
+		if (self::$_Instance === null) {
 			self::$_Instance = $this;
 
 		} else {
@@ -39,9 +39,8 @@ class Request extends RequestBase {
 	 *
 	 * @return Request
 	 */
-	public static function &GetInstance()
-	{
-		if ( self::$_Instance === null  || ! is_object( self::$_Instance ) ) {
+	public static function &GetInstance() {
+		if (self::$_Instance === null || !is_object(self::$_Instance)) {
 			self::$_Instance = new self();
 		}
 

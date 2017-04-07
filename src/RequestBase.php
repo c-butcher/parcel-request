@@ -8,16 +8,16 @@ use Parcel\ArrayHelper\ArrayHelper;
  * Class RequestBase
  *
  * @version 1.0.0
- * @author Chris Butcher
+ * @author  Chris Butcher
  * @package Parcel\Request
  */
 abstract class RequestBase implements RequestInterface {
 
-	const FILTER_GET    = 1;
-	const FILTER_POST   = 2;
-	const FILTER_FILE   = 4;
+	const FILTER_GET = 1;
+	const FILTER_POST = 2;
+	const FILTER_FILE = 4;
 	const FILTER_HEADER = 8;
-	const FILTER_ALL    = 15;
+	const FILTER_ALL = 15;
 
 	/**
 	 * @var ArrayHelper
@@ -55,28 +55,28 @@ abstract class RequestBase implements RequestInterface {
 	/**
 	 * @inheritdoc
 	 */
-	public function Has( $name, $filter = self::FILTER_ALL ) {
+	public function Has($name, $filter = self::FILTER_ALL) {
 
-		if ( $filter & self::FILTER_GET ) {
-			if ( $this->_Get->Has( $name ) ) {
+		if ($filter & self::FILTER_GET) {
+			if ($this->_Get->Has($name)) {
 				return true;
 			}
 		}
 
-		if ( $filter & self::FILTER_POST ) {
-			if ( $this->_Post->Has( $name ) ) {
+		if ($filter & self::FILTER_POST) {
+			if ($this->_Post->Has($name)) {
 				return true;
 			}
 		}
 
-		if ( $filter & self::FILTER_FILE ) {
-			if ( $this->_Files->Has( $name ) ) {
+		if ($filter & self::FILTER_FILE) {
+			if ($this->_Files->Has($name)) {
 				return true;
 			}
 		}
 
-		if ( $filter & self::FILTER_HEADER ) {
-			if ( $this->_Headers->Has( $name ) ) {
+		if ($filter & self::FILTER_HEADER) {
+			if ($this->_Headers->Has($name)) {
 				return true;
 			}
 		}
@@ -87,29 +87,29 @@ abstract class RequestBase implements RequestInterface {
 	/**
 	 * @inheritdoc
 	 */
-	public function Get( $name, $default = null, $filter = self::FILTER_ALL ) {
+	public function Get($name, $default = null, $filter = self::FILTER_ALL) {
 
-		if ( $filter & self::FILTER_GET ) {
-			if ( $this->_Get->Has( $name ) ) {
-				return $this->_Get->Get( $name );
+		if ($filter & self::FILTER_GET) {
+			if ($this->_Get->Has($name)) {
+				return $this->_Get->Get($name);
 			}
 		}
 
-		if ( $filter & self::FILTER_POST ) {
-			if ( $this->_Post->Has( $name ) ) {
-				return $this->_Post->Get( $name );
+		if ($filter & self::FILTER_POST) {
+			if ($this->_Post->Has($name)) {
+				return $this->_Post->Get($name);
 			}
 		}
 
-		if ( $filter & self::FILTER_FILE ) {
-			if ( $this->_Files->Has( $name ) ) {
-				return $this->_Files->Get( $name );
+		if ($filter & self::FILTER_FILE) {
+			if ($this->_Files->Has($name)) {
+				return $this->_Files->Get($name);
 			}
 		}
 
-		if ( $filter & self::FILTER_HEADER ) {
-			if ( $this->_Headers->Has( $name ) ) {
-				return $this->_Headers->Get( $name );
+		if ($filter & self::FILTER_HEADER) {
+			if ($this->_Headers->Has($name)) {
+				return $this->_Headers->Get($name);
 			}
 		}
 
@@ -130,24 +130,24 @@ abstract class RequestBase implements RequestInterface {
 	 */
 	protected function ParseRequest() {
 
-		$this->_Get     = isset( $_GET ) ? new ArrayHelper( $_GET ) : new ArrayHelper();
-		$this->_Post    = isset( $_POST ) ? new ArrayHelper( $_POST ) : new ArrayHelper();
-		$this->_Files   = isset( $_FILES ) ? new ArrayHelper( $_FILES ) : new ArrayHelper();
-		$this->_Headers = isset( $_SERVER ) ? new ArrayHelper( $_SERVER ) : new ArrayHelper();
+		$this->_Get     = isset($_GET) ? new ArrayHelper($_GET) : new ArrayHelper();
+		$this->_Post    = isset($_POST) ? new ArrayHelper($_POST) : new ArrayHelper();
+		$this->_Files   = isset($_FILES) ? new ArrayHelper($_FILES) : new ArrayHelper();
+		$this->_Headers = isset($_SERVER) ? new ArrayHelper($_SERVER) : new ArrayHelper();
 
-		if ( is_string( $this->_Input ) && strlen( $this->_Input ) > 0 ) {
+		if (is_string($this->_Input) && strlen($this->_Input) > 0) {
 
-			$content_type = $this->_Headers->Get( 'Content-Type', 'text/html' );
-			$content_type = strtolower( $content_type );
+			$content_type = $this->_Headers->Get('Content-Type', 'text/html');
+			$content_type = strtolower($content_type);
 
 			/**
 			 * When the requests content type is set to JSON, then we need to decode the raw request
 			 * and then add it to the POST variables.
 			 */
-			if ( in_array( $content_type, array( 'application/json', 'text/json', 'json' ) ) ) {
-				if ( ( $json = json_decode( $this->_Input, true ) ) !== null ) {
-					foreach ( $json as $name => $value ) {
-						$this->_Post->Set( $name, $value );
+			if (in_array($content_type, ['application/json', 'text/json', 'json'])) {
+				if (($json = json_decode($this->_Input, true)) !== null) {
+					foreach ($json as $name => $value) {
+						$this->_Post->Set($name, $value);
 					}
 				}
 			}
@@ -169,23 +169,23 @@ abstract class RequestBase implements RequestInterface {
 	 */
 	protected function ReadInput() {
 
-		if ( function_exists( 'file_get_contents' ) ) {
-			if ( ( $this->_Input = file_get_contents( 'php://input' ) ) === false ) {
-				throw new \Exception( "Could not read the request input using file_get_contents()" );
+		if (function_exists('file_get_contents')) {
+			if (($this->_Input = file_get_contents('php://input')) === false) {
+				throw new \Exception("Could not read the request input using file_get_contents()");
 			}
 
-		} else if ( function_exists( 'stream_get_contents' ) ) {
-			if ( ( $this->_Input = stream_get_contents( STDIN ) ) === false ) {
-				throw new \Exception( "Could not read the request input using stream_get_contents()" );
+		} else if (function_exists('stream_get_contents')) {
+			if (($this->_Input = stream_get_contents(STDIN)) === false) {
+				throw new \Exception("Could not read the request input using stream_get_contents()");
 			}
 
-		} else if ( function_exists( 'http_get_request_body' ) ) {
-			if ( ( $this->_Input = http_get_request_body() ) === null ) {
-				throw new \Exception( "Could not read the request input using http_get_request_body()" );
+		} else if (function_exists('http_get_request_body')) {
+			if (($this->_Input = http_get_request_body()) === null) {
+				throw new \Exception("Could not read the request input using http_get_request_body()");
 			}
 
 		} else {
-			throw new \Exception( "No method found to read the request body." );
+			throw new \Exception("No method found to read the request body.");
 		}
 
 		return $this->_Input;
