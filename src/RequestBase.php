@@ -117,6 +117,13 @@ abstract class RequestBase implements RequestInterface {
 	}
 
 	/**
+	 * @inheritdoc
+	 */
+	public function GetRequestBody() {
+		return $this->_Input;
+	}
+
+	/**
 	 * Loads and processes the request data so it can be easily accessed through the helper methods.
 	 *
 	 * @return bool

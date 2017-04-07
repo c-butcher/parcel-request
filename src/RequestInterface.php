@@ -32,4 +32,11 @@ interface RequestInterface {
 	 * @return bool|mixed|null
 	 */
 	public function Get( $name, $default, $filter );
+
+	/**
+	 * Returns the requests raw body string.
+	 *
+	 * @return string|null
+	 */
+	public function GetRequestBody();
 }
