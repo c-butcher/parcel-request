@@ -176,6 +176,9 @@ abstract class RequestBase implements RequestInterface {
 			if ( ( $this->_Input = http_get_request_body() ) === null ) {
 				throw new \Exception( "Could not read the request input using http_get_request_body()" );
 			}
+
+		} else {
+			throw new \Exception( "No method found to read the request body." );
 		}
 
 		return $this->_Input;
