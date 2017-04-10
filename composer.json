@@ -2,13 +2,25 @@
   "name": "parcel/request",
   "description": "This component decodes the request, stores the request variables, and allows you to access them with helper methods.",
   "version": "1.0.0",
-  "homepage": "",
+  "homepage": "http://www.parcel-framework.com",
   "autoload": {
-    "psr-0": { "": "src/" },
-    "psr-4": { "": "src/" }
+    "psr-0": { "Parcel\\Request\\": "src/" },
+    "psr-4": { "Parcel\\Request\\": "src/" },
+    "exclude-from-classmap": [
+      "/tests/"
+    ]
   },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/c-butcher/parcel-array-helper.git"
+    }
+  ],
   "require": {
     "php": "^5.6 || ^7.0",
-    "parcel/array-helper": "^1.0.0"
+    "parcel/array-helper": "v1.0.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.5"
   }
 }
